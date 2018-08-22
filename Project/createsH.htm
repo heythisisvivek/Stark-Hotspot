@@ -1,0 +1,80 @@
+<!DOCTYPE>
+<html lang="en-US">
+  <head>
+    <meta http-equiv="content-type" content="html/text; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="Css/createsH.css" type="text/css" />
+    <style>
+      @font-face {
+        font-family: georgia;
+        src: url("Font/Georgia.ttf");
+      }
+    </style>
+  </head>
+  <body style="font-family: georgia"  onkeydown="spacedis(event)">
+    <div align="center" class="waititload" style="display: block">
+      Wait it's Loading..
+    </div>
+    <div style="display: none" class="loadcomp">
+    <div class="title">Enter SSID & KEY in Order to Start</div>
+    <div class="container">
+      <ul>
+        <li>SSID</li>
+        <li><input type="text" id="shssid" placeholder="Hotspot Name" required /></li>
+        <li>KEY</li>
+        <li><input type="password" id="shpassword" placeholder="*****" required /></li>
+        <li><input type="button" onclick="runsH()" value="Create Stark Shield"></li>
+      </ul>
+    </div>
+    </div>
+    <script>
+    onload = function () {
+      setTimeout(loadingfunc,200);
+    function loadingfunc() {
+      document.querySelector(".waititload").style.display = "none";
+      document.querySelector(".loadcomp").style.display = "block";
+    }
+    }
+    function spacedis(evt) {
+      if(evt.keyCode == "32") {
+        evt.preventDefault();
+      }
+    }
+      function runsH() {
+        var fs = require("fs");
+        const {shell} = require("electron").remote;
+        var shssid = document.getElementById("shssid");
+        var shpassword = document.getElementById("shpassword");
+        var title = document.querySelector(".title");
+        var insertcomm = "netsh wlan stop hostednetwork\nnetsh wlan set hostednetwork mode=allow ssid="+shssid.value+" key="+shpassword.value+"\nnetsh wlan start hostednetwork";
+        if(shssid.value == "" || shpassword.value == "") {
+          title.innerHTML = "Input Are Empty";
+          title.style.backgroundColor = "red";
+        } else {
+        if(shssid.value.length < 2 || shssid.value.length > 20) {
+          title.innerHTML = "Provide Proper Length To SSID";
+          title.style.backgroundColor = "red";
+        } else {
+          if(shpassword.value.length < 8 || shpassword.value.length > 20) {
+            title.innerHTML = "Provide Proper Length To KEY";
+            title.style.backgroundColor = "red";
+          } else {
+            title.innerHTML = "Stark Hotspot Created";
+            title.style.backgroundColor = "green";
+            fs.writeFileSync("Start Stark.bat",insertcomm,"UTF-8", (err) => {
+              title.innerHTML = "Error while Creatings Hotspot, Prefer to Reinstall.";
+              title.style.backgroundColor = "red";
+            })
+            shell.openItem(`${__dirname}/Start Stark ADM.bat`);
+            setTimeout(ExitStark,4000);
+            function ExitStark() {
+              const {ipcRenderer} = require("electron");
+              ipcRenderer.send("hidewindows");
+            }
+          }
+        }
+      }
+      }
+    </script>
+  </body>
+</html>

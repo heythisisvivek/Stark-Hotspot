@@ -1,0 +1,57 @@
+@import "reset.css";
+
+body {
+  color: #545454;
+  -webkit-user-select: none;
+}
+
+.title {
+  color: #FFF;
+  padding: 8px;
+  text-align: center;
+  background-color: #545454;
+}
+
+.container {
+  margin-left: 13%;
+  margin-top: 15px;
+}
+
+li {
+  margin: 10px;
+}
+
+input[type="text"],[type="password"],[type="button"] {
+  outline: 0;
+  width: 220px;
+  height: 30px;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #545454;
+}
+
+input[type="text"]:focus,[type="password"]:focus {
+  border: 1px solid #4169E1;
+  box-shadow: 0.2px 0.2px 0.2px 0.2px #4169E1;
+}
+
+input[type="button"] {
+  border: 0;
+  color: #FFF;
+  font-size: 14px;
+  padding-top: 8px;
+  background-color: #6495ED;
+}
+
+input[type="button"]:focus {
+  opacity: 0.8;
+}
+
+input[type="button"]:hover {
+  opacity: 0.8;
+}
+
+input[type="button"]:active {
+  background-color: #4169E1;
+}

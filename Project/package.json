@@ -1,0 +1,22 @@
+{
+  "name": "Stark-Hotspot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . Stark-Hotspot --overwrite --platform=win32 --arch=ia32 --icon=Image/icon.ico --prune=true --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='Stark-Hotspot'"
+  },
+  "author": "Jake Redfield (Vivek)",
+  "license": "ISC",
+  "devDependencies": {
+    "asar": "^0.14.3",
+    "electron": "^2.0.0",
+    "electron-packager": "^12.1.1"
+  },
+  "dependencies": {
+    "electron-notifications": "^1.0.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-winstaller": "^2.6.4"
+  }
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta http-equiv="content-type" content="html/text; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="Css/index.css" type="text/css" />
+  <style>
+    @font-face {
+      font-family: georgia;
+      src:url("Font/Georgia.ttf");
+    }
+  </style>
+</head>
+<body style="font-family: georgia">
+  <div align="center" class="wait-till-loading" style="display: block">
+    Wait it's Loading..
+  </div>
+  <!-- Body Title -->
+  <div class="show-app" style="display: none">
+  <h2 align="center" style="font-weight: bold; font-size: 25px">[ Stark Hotspot ]</h2>
+  <!-- Body Container -->
+  <div class="container">
+    <input class="sH-btn" type="button" onclick="cStarkH()" value="Create Stark Hotspot" />
+    <input class="sH-btn" type="button" onclick="sStarkH()" value="Abort Stark Hotspot">
+  </div>
+  <!-- Body Footer -->
+  <div class="footer">
+    <hr style="margin-right: 8px" />
+    <div>Copyright &copy; 2018</div>
+  </div>
+  </div>
+  <script>
+  onload = () => {
+    setTimeout(runthisbeforeload,200);
+    function runthisbeforeload () {
+    document.querySelector(".wait-till-loading").style.display = "none";
+    document.querySelector(".show-app").style.display = "block";
+  }
+  }
+  const remote = require("electron").remote;
+  const {Menu, MenuItem, Tray, shell} = remote;
+  const menu = new Menu();
+
+  menu.append(new MenuItem({label: "Create Stark Hotspot",click() {cStarkH()}}));
+  menu.append(new MenuItem({type: "separator"}));
+  menu.append(new MenuItem({label: "More Stuff", click() {shell.openExternal("https://heythisisjake.blogspot.com/")}}));
+  menu.append(new MenuItem({label: "Report BUG", click() {shell.openExternal("https://goo.gl/forms/UKhv0oeyFsfegNWC2")}}));
+  menu.append(new MenuItem({label: "About US", click() {shell.openExternal("https://heythisisvivek.github.io/")}}));
+  menu.append(new MenuItem({type: "separator"}));
+  menu.append(new MenuItem({label: "Exit", click() {window.close()}}));;
+
+  window.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+    menu.popup(remote.getCurrentWindow());
+  },false)
+
+    function cStarkH() {
+        const {ipcRenderer} = require("electron");
+        ipcRenderer.send("windowopend");
+        ipcRenderer.on("close-yourself",() => {
+          ipcRenderer.send("hide-me");
+        })
+      }
+
+    function sStarkH() {
+      const {shell} = require("electron").remote;
+      shell.openItem(`${__dirname}/Stop Stark ADM.bat`);
+    }
+  </script>
+</body>
+</html>
