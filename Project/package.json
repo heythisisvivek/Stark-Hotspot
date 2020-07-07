@@ -11,7 +11,7 @@
   "license": "ISC",
   "devDependencies": {
     "asar": "^0.14.3",
-    "electron": ">=2.0.8",
+    "electron": ">=7.2.4",
     "electron-packager": "^12.1.1"
   },
   "dependencies": {
